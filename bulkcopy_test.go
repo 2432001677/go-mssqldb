@@ -14,10 +14,6 @@ import (
 )
 
 func TestBulkcopy(t *testing.T) {
-	// TDS level Bulk Insert is not supported on Azure SQL Server.
-	if dsn := makeConnStr(t); strings.HasSuffix(strings.Split(dsn.Host, ":")[0], ".database.windows.net") {
-		t.Skip("TDS level bulk copy is not supported on Azure SQL Server")
-	}
 	type testValue struct {
 		colname string
 		in, out interface{}

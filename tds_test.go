@@ -33,7 +33,7 @@ func TestConstantsDefined(t *testing.T) {
 	// These constants are part of the spec but not yet used.
 	for _, b := range []byte{
 		featExtSESSIONRECOVERY, featExtCOLUMNENCRYPTION, featExtGLOBALTRANSACTIONS,
-		featExtAZURESQLSUPPORT, featExtDATACLASSIFICATION, featExtUTF8SUPPORT,
+		featExtDATACLASSIFICATION, featExtUTF8SUPPORT,
 	} {
 		if b == 0 {
 			t.Fail()

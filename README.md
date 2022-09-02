@@ -123,43 +123,6 @@ Other supported formats are listed below.
 
 * Shared Memory (It'll return "not implemented yet" error): server=lpc:.\SQLEXPRESS;user id=USER;password=PASSWORD;database=master
 
-### Azure Active Directory authentication
-
-Azure Active Directory authentication uses temporary authentication tokens to authenticate.
-The `mssql` package does not provide an implementation to obtain tokens: instead, import the `azuread` package and use driver name `azuresql`. This driver uses [azidentity](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#section-readme) to acquire tokens using a variety of credential types.
-
-The credential type is determined by the new `fedauth` connection string parameter.
-
-* `fedauth=ActiveDirectoryServicePrincipal` or `fedauth=ActiveDirectoryApplication` - authenticates using an Azure Active Directory application client ID and client secret or certificate. Implemented using [ClientSecretCredential or CertificateCredential](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/azidentity#authenticating-service-principals)
-  * `clientcertpath=<path to certificate file>;password=<certificate password>` or
-  * `password=<client secret>`
-  * `user id=<application id>[@tenantid]` Note the `@tenantid` component can be omitted if the server's tenant is the same as the application's tenant.
-* `fedauth=ActiveDirectoryPassword` - authenticates using a user name and password.
-  * `user id=username@domain`
-  * `password=<password>`
-  * `applicationclientid=<application id>` - This guid identifies an Azure Active Directory enterprise application that the AAD admin has approved for accessing Azure SQL database resources in the tenant. This driver does not have an associated application id of its own.
-* `fedauth=ActiveDirectoryDefault` - authenticates using a chained set of credentials. The chain is built from EnvironmentCredential -> ManagedIdentityCredential->AzureCLICredential.  See [DefaultAzureCredential docs](https://github.com/Azure/azure-sdk-for-go/wiki/Set-up-Your-Environment-for-Authentication#configure-defaultazurecredential) for instructions on setting up your host environment to use it. Using this option allows you to have the same connection string in a service deployment as on your interactive development machine.
-* `fedauth=ActiveDirectoryManagedIdentity` or `fedauth=ActiveDirectoryMSI` - authenticates using a system-assigned or user-assigned Azure Managed Identity.
-  * `user id=<identity id>` - optional id of user-assigned managed identity. If empty, system-assigned managed identity is used.
-* `fedauth=ActiveDirectoryInteractive` - authenticates using credentials acquired from an external web browser. Only suitable for use with human interaction.
-  * `applicationclientid=<application id>` - This guid identifies an Azure Active Directory enterprise application that the AAD admin has approved for accessing Azure SQL database resources in the tenant. This driver does not have an associated application id of its own.
-
-```go
-
-import (
-  "database/sql"
-  "net/url"
-
-  // Import the Azure AD driver module (also imports the regular driver package)
-  "github.com/2432001677/go-mssqldb/azuread"
-)
-
-func ConnectWithMSI() (*sql.DB, error) {
-  return sql.Open(azuread.DriverName, "sqlserver://azuresql.database.windows.net?database=yourdb&fedauth=ActiveDirectoryMSI")
-}
-
-```
-
 ## Executing Stored Procedures
 
 To run a stored procedure, set the query text to the procedure name:
@@ -309,7 +272,6 @@ are supported:
 ## Features
 
 * Can be used with SQL Server 2005 or newer
-* Can be used with Microsoft Azure SQL Database
 * Can be used on all go supported platforms (e.g. Linux, Mac OS X and Windows)
 * Supports new date/time types: date, time, datetime2, datetimeoffset
 * Supports string parameters longer than 8000 characters
@@ -329,8 +291,6 @@ Example:
 ```bash
     env SQLSERVER_DSN=sqlserver://user:pass@hostname/instance?database=test1 go test
 ```
-
-`AZURESERVER_DSN` environment variable provides the connection string for Azure Active Directory-based authentication. If it's not set the AAD test will be skipped.
 
 ## Deprecated
 

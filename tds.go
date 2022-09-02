@@ -126,7 +126,6 @@ const (
 	featExtFEDAUTH            byte = 0x02
 	featExtCOLUMNENCRYPTION   byte = 0x04
 	featExtGLOBALTRANSACTIONS byte = 0x05
-	featExtAZURESQLSUPPORT    byte = 0x08
 	featExtDATACLASSIFICATION byte = 0x09
 	featExtUTF8SUPPORT        byte = 0x0A
 	featExtTERMINATOR         byte = 0xFF

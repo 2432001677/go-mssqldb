@@ -737,12 +737,12 @@ func TestParamNoName(t *testing.T) {
 // "SELECT 1;" TDS Batch queries are send prior the long query fails to send.
 //
 // Lastly, this only manafests itself with an encrypted connection. This has been
-// observed with SQL Server Azure, SQL Server 13.0.1742 on Windows, and SQL Server
-// 14.0.900.75 on Linux. It also fails when using the "dev.boringcrypto" (a C based
-// TLS crypto). I haven't found any knobs on SQL Server to expose the error message
-// nor have I found a good way to decrypt the TDS stream. KeyLogWriter in the TLS
-// config may help with that, but wireshark wasn't decrypting TDS based TLS streams
-// even when using that.
+// observed with SQL Server 13.0.1742 on Windows, and SQL Server 14.0.900.75 on
+// Linux. It also fails when using the "dev.boringcrypto" (a C basedTLS crypto).
+// I haven't found any knobs on SQL Server to expose the error message  nor have
+// I found a good way to decrypt the TDS stream. KeyLogWriter in the TLS config
+// may help with that, but wireshark wasn't decrypting TDS based TLS streams even
+// when using that.
 //
 // Issue https://github.com/2432001677/go-mssqldb/issues/166
 func TestTLSServerReadClose(t *testing.T) {
