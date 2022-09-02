@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
+	mssql "github.com/2432001677/go-mssqldb"
 	"github.com/Azure/go-autorest/autorest/adal"
-	mssql "github.com/denisenkom/go-mssqldb"
 )
 
 var (

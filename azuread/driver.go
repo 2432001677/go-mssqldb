@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"database/sql/driver"
 
-	mssql "github.com/denisenkom/go-mssqldb"
+	mssql "github.com/2432001677/go-mssqldb"
 )
 
 // DriverName is the name used to register the driver

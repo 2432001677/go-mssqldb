@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"strings"
 
+	mssql "github.com/2432001677/go-mssqldb"
+	"github.com/2432001677/go-mssqldb/msdsn"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	mssql "github.com/denisenkom/go-mssqldb"
-	"github.com/denisenkom/go-mssqldb/msdsn"
 )
 
 const (

@@ -16,7 +16,7 @@ import (
 	"unicode/utf16"
 	"unicode/utf8"
 
-	"github.com/denisenkom/go-mssqldb/msdsn"
+	"github.com/2432001677/go-mssqldb/msdsn"
 )
 
 func parseInstances(msg []byte) map[string]map[string]string {
@@ -847,10 +847,23 @@ type auth interface {
 	Free()
 }
 
+func dialConnection(ctx context.Context, c *Connector, p msdsn.Config) (conn net.Conn, err error) {
+	switch p.Protocol {
+	case msdsn.TCP:
+		return dialConnectionUsingTCP(ctx, c, p)
+	case msdsn.NAMED_PIPE:
+		return dialConnectionUsingNamedPipe(ctx, c, p)
+	case msdsn.SHARED_MEMORY:
+		return nil, fmt.Errorf("Shared memory protocol (\"%s\") is not implemented yet", p.Protocol)
+	default:
+		return nil, fmt.Errorf("Invalid value '%+v' for Protocol type", p.Protocol)
+	}
+}
+
 // SQL Server AlwaysOn Availability Group Listeners are bound by DNS to a
 // list of IP addresses.  So if there is more than one, try them all and
 // use the first one that allows a connection.
-func dialConnection(ctx context.Context, c *Connector, p msdsn.Config) (conn net.Conn, err error) {
+func dialConnectionUsingTCP(ctx context.Context, c *Connector, p msdsn.Config) (conn net.Conn, err error) {
 	var ips []net.IP
 	ip := net.ParseIP(p.Host)
 	if ip == nil {
@@ -1142,7 +1155,7 @@ initiate_connection:
 			if config.DynamicRecordSizingDisabled == false {
 				config = config.Clone()
 
-				// fix for https://github.com/denisenkom/go-mssqldb/issues/166
+				// fix for https://github.com/2432001677/go-mssqldb/issues/166
 				// Go implementation of TLS payload size heuristic algorithm splits single TDS package to multiple TCP segments,
 				// while SQL Server seems to expect one TCP segment per encrypted TDS package.
 				// Setting DynamicRecordSizingDisabled to true disables that algorithm and uses 16384 bytes per TLS package

@@ -1,14 +1,16 @@
 # A pure Go MSSQL driver for Go's database/sql package
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/denisenkom/go-mssqldb.svg)](https://pkg.go.dev/github.com/denisenkom/go-mssqldb)
-[![Build status](https://ci.appveyor.com/api/projects/status/jrln8cs62wj9i0a2?svg=true)](https://ci.appveyor.com/project/denisenkom/go-mssqldb)
-[![codecov](https://codecov.io/gh/denisenkom/go-mssqldb/branch/master/graph/badge.svg)](https://codecov.io/gh/denisenkom/go-mssqldb)
+[![Go Reference](https://pkg.go.dev/badge/github.com/2432001677/go-mssqldb.svg)](https://pkg.go.dev/github.com/2432001677/go-mssqldb)
+[![Build status](https://ci.appveyor.com/api/projects/status/jrln8cs62wj9i0a2?svg=true)](https://ci.appveyor.com/project/2432001677/go-mssqldb)
+[![codecov](https://codecov.io/gh/2432001677/go-mssqldb/branch/master/graph/badge.svg)](https://codecov.io/gh/2432001677/go-mssqldb)
+
+Appreciate to https://github.com/natefinch/npipe and https://github.com/simnalamburt/go-mssqldb  
 
 ## Install
 
 Requires Go 1.8 or above.
 
-Install with `go get github.com/denisenkom/go-mssqldb` .
+Install with `go get github.com/2432001677/go-mssqldb` .
 
 ## Connection Parameters and DSN
 
@@ -112,6 +114,15 @@ Other supported formats are listed below.
     * `odbc:server=localhost;user id=sa;password={foo{bar}` // Literal `{`, password is "foo{bar"
     * `odbc:server=localhost;user id=sa;password={foo}}bar}` // Escaped `} with`}}`, password is "foo}bar"
 
+4. Choose a protocol
+* TCP (Omitting the protocol will defaults to TCP to preserve backward compatibility): server=localhost;user id=USER;password=PASSWORD;database=master
+
+* TCP: server=tcp:localhost;user id=USER;password=PASSWORD;database=master
+
+* Named pipe: server=np:\\.\pipe\sql\query;user id=USER;password=PASSWORD;database=master
+
+* Shared Memory (It'll return "not implemented yet" error): server=lpc:.\SQLEXPRESS;user id=USER;password=PASSWORD;database=master
+
 ### Azure Active Directory authentication
 
 Azure Active Directory authentication uses temporary authentication tokens to authenticate.
@@ -140,7 +151,7 @@ import (
   "net/url"
 
   // Import the Azure AD driver module (also imports the regular driver package)
-  "github.com/denisenkom/go-mssqldb/azuread"
+  "github.com/2432001677/go-mssqldb/azuread"
 )
 
 func ConnectWithMSI() (*sql.DB, error) {
@@ -288,9 +299,9 @@ are supported:
  or add a `select ID = convert(bigint, SCOPE_IDENTITY());` to the end of your
  query (ref [SCOPE_IDENTITY](https://docs.microsoft.com/en-us/sql/t-sql/functions/scope-identity-transact-sql)).
  This will ensure you are getting the correct ID and will prevent a network round trip.
-* [NewConnector](https://godoc.org/github.com/denisenkom/go-mssqldb#NewConnector)
+* [NewConnector](https://godoc.org/github.com/2432001677/go-mssqldb#NewConnector)
     may be used with [OpenDB](https://golang.org/pkg/database/sql/#OpenDB).
-* [Connector.SessionInitSQL](https://godoc.org/github.com/denisenkom/go-mssqldb#Connector.SessionInitSQL)
+* [Connector.SessionInitSQL](https://godoc.org/github.com/2432001677/go-mssqldb#Connector.SessionInitSQL)
  may be set to set any driver specific session settings after the session
  has been reset. If empty the session will still be reset but use the database
  defaults in Go1.10+.

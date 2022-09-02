@@ -3,8 +3,8 @@ package azuread
 import (
 	"testing"
 
-	mssql "github.com/denisenkom/go-mssqldb"
-	"github.com/denisenkom/go-mssqldb/msdsn"
+	mssql "github.com/2432001677/go-mssqldb"
+	"github.com/2432001677/go-mssqldb/msdsn"
 )
 
 func TestValidateParameters(t *testing.T) {

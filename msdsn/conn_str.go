@@ -38,6 +38,7 @@ const (
 )
 
 type Config struct {
+	Protocol   Protocol
 	Port       uint64
 	Host       string
 	Instance   string
@@ -80,7 +81,7 @@ func SetupTLS(certificate string, insecureSkipVerify bool, hostInCertificate str
 		ServerName:         hostInCertificate,
 		InsecureSkipVerify: insecureSkipVerify,
 
-		// fix for https://github.com/denisenkom/go-mssqldb/issues/166
+		// fix for https://github.com/2432001677/go-mssqldb/issues/166
 		// Go implementation of TLS payload size heuristic algorithm splits single TDS package to multiple TCP segments,
 		// while SQL Server seems to expect one TCP segment per encrypted TDS package.
 		// Setting DynamicRecordSizingDisabled to true disables that algorithm and uses 16384 bytes per TLS package
@@ -136,13 +137,30 @@ func Parse(dsn string) (Config, map[string]string, error) {
 		p.LogFlags = Log(flags)
 	}
 	server := params["server"]
-	parts := strings.SplitN(server, `\`, 2)
-	p.Host = parts[0]
-	if p.Host == "." || strings.ToUpper(p.Host) == "(LOCAL)" || p.Host == "" {
-		p.Host = "localhost"
+
+	// Try to parse protocol from the server string. Omitting the protocol will
+	// defaults to TCP.
+	p.Protocol = TCP
+	for _, prot := range [...]Protocol{TCP, NAMED_PIPE, SHARED_MEMORY} {
+		prefix := string(prot)
+		if strings.HasPrefix(server, prefix) {
+			server = server[len(prefix):]
+			p.Protocol = prot
+			break
+		}
 	}
-	if len(parts) > 1 {
-		p.Instance = parts[1]
+
+	if p.Protocol == NAMED_PIPE {
+		p.Host = server
+	} else {
+		parts := strings.SplitN(server, `\`, 2)
+		p.Host = parts[0]
+		if p.Host == "." || strings.ToUpper(p.Host) == "(LOCAL)" || p.Host == "" {
+			p.Host = "localhost"
+		}
+		if len(parts) > 1 {
+			p.Instance = parts[1]
+		}
 	}
 	p.Database = params["database"]
 	p.User = params["user id"]
