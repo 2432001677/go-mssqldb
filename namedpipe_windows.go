@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"gopkg.in/natefinch/npipe.v2"
 	"net"
+	"time"
 
 	"github.com/2432001677/go-mssqldb/msdsn"
 )
