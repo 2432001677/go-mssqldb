@@ -13,7 +13,7 @@ import (
 )
 
 func dialConnectionUsingNamedPipe(_ context.Context, _ *Connector, p msdsn.Config) (conn net.Conn, err error) {
-	conn, err = npipe.Dial(p.Host)
+	conn,err = npipe.DialTimeout(p.Host, 3*time.Second)
 
 	if err != nil {
 		f := "Unable to open named pipe connection with address '%v': %v"
