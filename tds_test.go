@@ -17,7 +17,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/2432001677/go-mssqldb/msdsn"
+	"github.com/BruceCatYu/go-mssqldb/msdsn"
 )
 
 type MockTransport struct {
@@ -216,9 +216,12 @@ func testConnParams(t testing.TB) msdsn.Config {
 // TestConnParams returns a connection configuration based on environment variables or the contents of a text file
 // Set environment variable SQLSERVER_DSN to provide an entire connection string
 // Set environment variables HOST and DATABASE from which a minimal config will be created.
-//  If HOST and DATABASE are set, you can optionally set INSTANCE, SQLUSER, and SQLPASSWORD as well
+//
+//	If HOST and DATABASE are set, you can optionally set INSTANCE, SQLUSER, and SQLPASSWORD as well
+//
 // If environment variables are not set, it will look in the working directory for a file named .connstr
-//   If the file exists it will use the first line of the file as the file as the DSN
+//
+//	If the file exists it will use the first line of the file as the file as the DSN
 func GetConnParams() (*msdsn.Config, error) {
 	dsn := os.Getenv("SQLSERVER_DSN")
 	const logFlags = 127

@@ -1163,7 +1163,7 @@ func TestTVPObject(t *testing.T) {
 	}
 }
 
-// fix pointer uint in tvp https://github.com/2432001677/go-mssqldb/issues/703
+// fix pointer uint in tvp https://github.com/BruceCatYu/go-mssqldb/issues/703
 func TestTVPUnsigned(t *testing.T) {
 	checkConnStr(t)
 	tl := testLogger{t: t}

@@ -1,8 +1,8 @@
 # A pure Go MSSQL driver for Go's database/sql package
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/2432001677/go-mssqldb.svg)](https://pkg.go.dev/github.com/2432001677/go-mssqldb)
-[![Build status](https://ci.appveyor.com/api/projects/status/jrln8cs62wj9i0a2?svg=true)](https://ci.appveyor.com/project/2432001677/go-mssqldb)
-[![codecov](https://codecov.io/gh/2432001677/go-mssqldb/branch/master/graph/badge.svg)](https://codecov.io/gh/2432001677/go-mssqldb)
+[![Go Reference](https://pkg.go.dev/badge/github.com/BruceCatYu/go-mssqldb.svg)](https://pkg.go.dev/github.com/BruceCatYu/go-mssqldb)
+[![Build status](https://ci.appveyor.com/api/projects/status/jrln8cs62wj9i0a2?svg=true)](https://ci.appveyor.com/project/BruceCatYu/go-mssqldb)
+[![codecov](https://codecov.io/gh/BruceCatYu/go-mssqldb/branch/master/graph/badge.svg)](https://codecov.io/gh/BruceCatYu/go-mssqldb)
 
 Appreciate to https://github.com/natefinch/npipe and https://github.com/simnalamburt/go-mssqldb  
 
@@ -12,7 +12,7 @@ For more recent updates, see the [Microsoft fork](https://github.com/microsoft/g
 
 Requires Go 1.8 or above.
 
-Install with `go get github.com/2432001677/go-mssqldb` .
+Install with `go get github.com/BruceCatYu/go-mssqldb` .
 
 ## Connection Parameters and DSN
 
@@ -264,9 +264,9 @@ are supported:
  or add a `select ID = convert(bigint, SCOPE_IDENTITY());` to the end of your
  query (ref [SCOPE_IDENTITY](https://docs.microsoft.com/en-us/sql/t-sql/functions/scope-identity-transact-sql)).
  This will ensure you are getting the correct ID and will prevent a network round trip.
-* [NewConnector](https://godoc.org/github.com/2432001677/go-mssqldb#NewConnector)
+* [NewConnector](https://godoc.org/github.com/BruceCatYu/go-mssqldb#NewConnector)
     may be used with [OpenDB](https://golang.org/pkg/database/sql/#OpenDB).
-* [Connector.SessionInitSQL](https://godoc.org/github.com/2432001677/go-mssqldb#Connector.SessionInitSQL)
+* [Connector.SessionInitSQL](https://godoc.org/github.com/BruceCatYu/go-mssqldb#Connector.SessionInitSQL)
  may be set to set any driver specific session settings after the session
  has been reset. If empty the session will still be reset but use the database
  defaults in Go1.10+.

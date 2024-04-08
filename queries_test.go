@@ -16,7 +16,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/2432001677/go-mssqldb/msdsn"
+	"github.com/BruceCatYu/go-mssqldb/msdsn"
 )
 
 func driverWithProcess(t *testing.T, tl Logger) *Driver {
@@ -1031,7 +1031,7 @@ func TestStmt_SetQueryNotification(t *testing.T) {
 		rows.Close()
 	}
 	// notifications are sent to Service Broker
-	// see for more info: https://github.com/2432001677/go-mssqldb/pull/90
+	// see for more info: https://github.com/BruceCatYu/go-mssqldb/pull/90
 }
 
 func TestErrorInfo(t *testing.T) {

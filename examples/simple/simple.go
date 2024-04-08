@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 
-	_ "github.com/2432001677/go-mssqldb"
+	_ "github.com/BruceCatYu/go-mssqldb"
 )
 
 var (

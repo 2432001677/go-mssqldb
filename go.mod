@@ -1,4 +1,4 @@
-module github.com/2432001677/go-mssqldb
+module github.com/BruceCatYu/go-mssqldb
 
 go 1.13
 

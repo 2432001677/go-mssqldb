@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/2432001677/go-mssqldb/msdsn"
+	"github.com/BruceCatYu/go-mssqldb/msdsn"
 )
 
 func dialConnectionUsingNamedPipe(_ context.Context, _ *Connector, p msdsn.Config) (conn net.Conn, err error) {

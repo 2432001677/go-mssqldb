@@ -559,7 +559,7 @@ END;
 // incorrect. Furthermore, the Data Race Detector would detect a data race because the output
 // variable is shared between the driver and the client application.
 //
-// Issue https://github.com/2432001677/go-mssqldb/issues/378
+// Issue https://github.com/BruceCatYu/go-mssqldb/issues/378
 func TestOutputParamWithRows(t *testing.T) {
 	sqltextcreate := `
 	CREATE PROCEDURE spwithoutputandrows
@@ -744,7 +744,7 @@ func TestParamNoName(t *testing.T) {
 // may help with that, but wireshark wasn't decrypting TDS based TLS streams even
 // when using that.
 //
-// Issue https://github.com/2432001677/go-mssqldb/issues/166
+// Issue https://github.com/BruceCatYu/go-mssqldb/issues/166
 func TestTLSServerReadClose(t *testing.T) {
 	query := `
 with

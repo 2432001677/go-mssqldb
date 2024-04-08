@@ -7,7 +7,7 @@ To use the Connector type, first you need to import the sql and go-mssqldb packa
 ```
 import (
   "database/sql"
-  "github.com/2432001677/go-mssqldb"
+  "github.com/BruceCatYu/go-mssqldb"
 )
 ```
 
